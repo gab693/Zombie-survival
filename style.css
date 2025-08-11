@@ -1,0 +1,153 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #1a1a1a;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    user-select: none;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #2c1810, #1a1a1a);
+}
+
+#gameCanvas {
+    background: #0d4f3c;
+    border: 3px solid #8B4513;
+    cursor: crosshair;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    max-width: 100vw;
+    max-height: 100vh;
+    touch-action: none;
+}
+
+@media (max-width: 768px) {
+    #gameCanvas {
+        width: 100vw;
+        height: 70vh;
+        border: 2px solid #8B4513;
+        position: relative;
+        z-index: 1;
+    }
+    
+    #stats {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px;
+        font-size: 14px;
+        position: relative;
+        z-index: 10;
+    }
+    
+    #instructions {
+        bottom: 10px;
+        font-size: 12px;
+        padding: 5px 15px;
+        position: relative;
+        z-index: 10;
+    }
+    
+    #gameOver {
+        padding: 20px;
+        max-width: 90vw;
+        position: relative;
+        z-index: 20;
+    }
+    
+    #gameOver h2 {
+        font-size: 24px;
+    }
+    
+    #joystickOverlay {
+        touch-action: none;
+    }
+}
+
+#gameUI {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#stats {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-bottom: 2px solid #ff0000;
+}
+
+#stats div {
+    color: #00ff00;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+#gameOver {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 40px;
+    border: 3px solid #ff0000;
+    text-align: center;
+    pointer-events: auto;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+}
+
+#gameOver h2 {
+    color: #ff0000;
+    margin-bottom: 20px;
+    font-size: 32px;
+    text-shadow: 0 0 10px #ff0000;
+}
+
+#gameOver button {
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+
+#gameOver button:hover {
+    background: #cc0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+}
+
+#instructions {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none !important;
+}
