@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Survival Game</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="gameUI">
+            <div id="stats">
+                <div>Health: <span id="health">100</span></div>
+                <div>Score: <span id="score">0</span></div>
+                <div>Ammo: <span id="ammo">30</span></div>
+                <div>Wave: <span id="wave">1</span></div>
+            </div>
+            <div id="gameOver" class="hidden">
+                <h2>Game Over!</h2>
+                <p>Final Score: <span id="finalScore">0</span></p>
+                <button onclick="restartGame()">Play Again</button>
+            </div>
+        </div>
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="instructions">
+            <p id="desktopControls">Move: WASD or Arrow Keys | Shoot: Click | Reload: R | Switch Weapon: Q</p>
+            <p id="mobileControls" style="display: none;">Joystick (Bottom Left): Move | Canvas: Swipe to aim, Tap to shoot | SW Button (Bottom Right): Switch Weapon | R Button (Right): Reload</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
