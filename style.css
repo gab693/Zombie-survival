@@ -11,6 +11,12 @@ body {
     font-family: 'Courier New', monospace;
     overflow: hidden;
     user-select: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    touch-action: none;
 }
 
 #gameContainer {
@@ -31,47 +37,97 @@ body {
     max-width: 100vw;
     max-height: 100vh;
     touch-action: none;
+    width: 1200px;
+    height: 800px;
 }
 
 @media (max-width: 768px) {
     #gameCanvas {
-        width: 100vw;
-        height: 70vh;
-        border: 2px solid #8B4513;
+        width: 100vw !important;
+        height: 100vh !important;
+        border: 1px solid #8B4513;
         position: relative;
         z-index: 1;
+        touch-action: none;
+        margin: 0 auto;
+        display: block;
+    }
+    
+    #gameContainer {
+        padding: 0;
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: column;
     }
     
     #stats {
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 10px;
-        font-size: 14px;
-        position: relative;
-        z-index: 10;
+        position: fixed;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 3px;
+        font-size: 8px;
+        z-index: 5;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+        max-height: 50px;
+        overflow: hidden;
+        pointer-events: none;
+        border-radius: 3px;
+    }
+    
+    #stats div {
+        font-size: 8px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 1px;
     }
     
     #instructions {
-        bottom: 10px;
-        font-size: 12px;
-        padding: 5px 15px;
-        position: relative;
-        z-index: 10;
+        position: fixed;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 8px;
+        padding: 2px 6px;
+        z-index: 5;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 3px;
+        pointer-events: none;
+        max-width: 90vw;
+        text-align: center;
     }
     
     #gameOver {
-        padding: 20px;
-        max-width: 90vw;
-        position: relative;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 15px;
+        max-width: 85vw;
         z-index: 20;
+        border-radius: 8px;
     }
     
     #gameOver h2 {
-        font-size: 24px;
+        font-size: 18px;
+        margin-bottom: 15px;
     }
     
-    #joystickOverlay {
-        touch-action: none;
+    #gameOver p {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+    
+    #gameOver button {
+        font-size: 14px;
+        padding: 10px 20px;
+        border-radius: 5px;
     }
 }
 
@@ -85,18 +141,33 @@ body {
 }
 
 #stats {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.7);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.8);
     border-bottom: 2px solid #ff0000;
+    max-height: 150px;
+    overflow-y: auto;
 }
 
 #stats div {
     color: #00ff00;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     text-shadow: 0 0 5px #00ff00;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+    #stats {
+        grid-template-columns: repeat(2, 1fr);
+        font-size: 12px;
+        padding: 10px;
+        gap: 8px;
+    }
 }
 
 #gameOver {
@@ -104,35 +175,75 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
-    padding: 40px;
-    border: 3px solid #ff0000;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 0, 0.95));
+    padding: 50px;
+    border: 4px solid #ff0000;
+    border-radius: 15px;
     text-align: center;
     pointer-events: auto;
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    min-width: 350px;
+    max-width: 90vw;
 }
 
 #gameOver h2 {
     color: #ff0000;
-    margin-bottom: 20px;
-    font-size: 32px;
-    text-shadow: 0 0 10px #ff0000;
+    margin-bottom: 25px;
+    font-size: 36px;
+    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+#gameOver p {
+    color: #ffffff;
+    font-size: 18px;
+    margin: 15px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 #gameOver button {
-    background: #ff0000;
+    background: linear-gradient(45deg, #ff0000, #cc0000);
     color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 18px;
+    border: 3px solid #ffffff;
+    padding: 18px 35px;
+    font-size: 20px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
-    transition: all 0.3s;
+    margin: 25px auto 0;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    display: block;
+    width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-#gameOver button:hover {
-    background: #cc0000;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+#gameOver button:hover,
+#gameOver button:focus {
+    background: linear-gradient(45deg, #cc0000, #990000);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 8px 16px rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px) scale(1.05);
+    border-color: #00ff00;
+}
+
+#gameOver button:active {
+    background: linear-gradient(45deg, #990000, #660000);
+    transform: translateY(0) scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
 
 #instructions {
